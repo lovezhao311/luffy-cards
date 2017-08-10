@@ -11,15 +11,17 @@ $seat = Seat::instance(1001);
 // 设置玩家人数
 $seat->setPlayerNumber(4);
 
-$seat->addPlayer(new Player(1));
+$player1 = $seat->addPlayer(new Player(1));
 // 玩家1准备
 $seat->readyForIndex(0);
 if ($seat->isbegin()) {
     // 每次有玩家准备都要检查是否可以开始游戏
 }
-$seat->addPlayer(new Player(2));
-$seat->addPlayer(new Player(3));
-$seat->addPlayer(new Player(4));
+
+$player2 = $seat->addPlayer(new Player(2));
+$player3 = $seat->addPlayer(new Player(3));
+$player4 = $seat->addPlayer(new Player(4));
+
 // 玩家2准备
 $seat->readyForIndex(2);
 // 玩家2退出
@@ -56,5 +58,11 @@ if ($seat->isbegin()) {
     // 某个人的牛
     // print_r($seat->getPlayerForIndex(1));
     // 全部人的牛
-    print_r($seat->getLists());
+    // print_r($seat->getLists());
 }
+
+$seat1 = Seat::instance(1001);
+$seat1->reset();
+// print_r($seat1->getLists());
+Seat::uninstance(1001);
+print_r($seat1->getLists());

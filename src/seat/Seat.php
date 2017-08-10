@@ -73,6 +73,19 @@ class Seat
         return self::$instance[$seatid];
     }
     /**
+     * 删除桌子
+     * @method   uninstance
+     * @DateTime 2017-08-10T16:25:54+0800
+     * @param    [type]                   $seatid [description]
+     * @return   [type]                           [description]
+     */
+    public static function uninstance($seatid)
+    {
+        if (isset(self::$instance[$seatid])) {
+            unset(self::$instance[$seatid]);
+        }
+    }
+    /**
      * 添加玩家（分配座位）
      * @method   addPlayer
      * @DateTime 2017-08-10T09:15:15+0800
@@ -320,6 +333,22 @@ class Seat
                 throw new Exception("绑定座位失败。");
             }
             $this->list[$key]['cards'] = $value;
+        }
+    }
+    /**
+     * 重新开始（一局结束后）
+     * @method   reset
+     * @DateTime 2017-08-10T16:18:39+0800
+     * @return   [type]                   [description]
+     */
+    public function reset()
+    {
+        foreach ($this->list as $key => $value) {
+            if ($value['isdropped'] === true) {
+                unset($this->list[$key]);
+                continue;
+            }
+            $value['isready'] = false;
         }
     }
 }
