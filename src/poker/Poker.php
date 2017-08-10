@@ -61,6 +61,62 @@ class Poker
         return $this->value;
     }
     /**
+     * 获取扑克花色数值
+     * @method   getColorNumber
+     * @DateTime 2017-08-03T17:38:16+0800
+     * @return   [type]                   [description]
+     */
+    public function getColorNumber()
+    {
+
+        switch ($this->color->getDesc()) {
+            case '黑桃':
+                return 4;
+                break;
+            case '红桃':
+                return 3;
+                break;
+            case '梅花':
+                return 2;
+                break;
+            case '方片':
+                return 1;
+                break;
+        }
+    }
+    /**
+     * 获取扑克数值
+     * @method   getNumber
+     * @DateTime 2017-08-03T15:32:22+0800
+     * @return   [type]                   [description]
+     */
+    public function getNumber()
+    {
+        switch ($this->value->getDesc()) {
+            case 'A':
+                return 1;
+                break;
+            case 'J':
+                return 11;
+                break;
+            case 'Q':
+                return 12;
+                break;
+            case 'K':
+                return 13;
+                break;
+            case '大王':
+                return 1;
+                break;
+            case '小王':
+                return 2;
+                break;
+            default:
+                return $this->value->getDesc();
+                break;
+        }
+    }
+    /**
      * 设置花色
      * @method   setValue
      * @DateTime 2017-08-02T14:02:22+0800

@@ -1,9 +1,10 @@
 <?php
 namespace luffyzhao\cards\games\abstracts;
 
-use luffyzhao\cards\poker\Poker;
 use luffyzhao\cards\poker\enums\Color;
 use luffyzhao\cards\poker\enums\Value;
+use luffyzhao\cards\poker\Poker;
+
 /**
  * 扑克类游戏抽象类
  */
@@ -60,34 +61,35 @@ abstract class PokerGame
     /**
      * 生成牌(洗牌)
      */
-    public function wash(){
+    public function wash()
+    {
         $pokers = [];
         // 大小王
-        if($this->getIsContainGhosts()){
+        if ($this->getIsContainGhosts()) {
             $pokers[] = new Poker(new Color(), new Value('大王'));
             $pokers[] = new Poker(new Color(), new Value('小王'));
         }
         // 数字牌
         $values = $this->getPokersValue();
         $colors = $this->getPokersColor();
-        foreach ($values as $value){
-            if($value == '大王' || $value == '小王'){
+        foreach ($values as $value) {
+            if ($value == '大王' || $value == '小王') {
                 continue;
             }
-            foreach ($colors as $color){
+            foreach ($colors as $color) {
                 $pokers[] = new Poker(new Color($color), new Value($value));
             }
         }
         // 用牌副数
         $pokersMerge = [];
-        if($this->getSetsNum() > 1){
-            for ($i = 1; $i < $this->getSetsNum(); $i++){
-                $pokersMerge = array_merge($pokersMerge,$pokers);
+        if ($this->getSetsNum() > 1) {
+            for ($i = 1; $i < $this->getSetsNum(); $i++) {
+                $pokersMerge = array_merge($pokersMerge, $pokers);
             }
-        }else{
+        } else {
             $pokersMerge = $pokers;
         }
-//        shuffle($pokersMerge);
+        shuffle($pokersMerge);
         $this->pokers = $pokersMerge;
     }
     /**
@@ -249,20 +251,6 @@ abstract class PokerGame
     public function setDealStart(int $dealStart)
     {
         $this->dealStart = $dealStart;
-    }
-
-    /**
-     * 扑克转数字
-     * @param $value
-     */
-    protected function pokerToNum(Poker $value){
-        if($value->getValue() == '大王' || $value->getValue() == '小王'){
-            $index = 1;
-        }else{
-            $values = $this->getPokersValue();
-            $index = array_search($value->getValue(), $values);
-        }
-        return $index + 1;
     }
 
 }
