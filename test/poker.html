@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>扑克</title>
+</head>
+<style type="text/css" media="screen">
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #00a651;
+}
+.hand {
+    margin: 50px;
+}
+div[class*='suit']{
+    margin: 5px;
+    float: left;
+}
+
+/**
+ * 扑克样式
+ */
+div[class*='suit'] > span{
+    font-size: 12px;
+    line-height: 120px;
+    text-align: center;
+    display: block;
+    color: #666;
+}
+div[class*='suit']{
+    padding: 5px;
+    font: 32px Georgia, Times New Roman, serif;
+    box-sizing: border-box;
+    position: relative;
+    width: 150px;
+    height: 110px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #fff;
+    -webkit-box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+}
+div[class*='suit']:before {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.suitdiamonds,
+.suitdiamonds:before{
+    content: "♦";
+    color: #ff0000;
+}
+.suithearts,
+.suithearts:before{
+    content: "♥";
+    color: #ff0000;
+}
+.suitclubs,
+.suitclubs:before{
+    content: "♣";
+    color: #000;
+}
+.suitspades,
+.suitspades:before{
+    content: "♠";
+    color: #000;
+}
+
+
+</style>
+
+<body>
+    <div class="hand">
+        <div class="suitdiamonds">
+            <p>A</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suithearts">
+            <p>2</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitclubs">
+            <p>3</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>4</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>5</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>6</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>7</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>8</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>9</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>10</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>J</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>Q</p>
+            <span>广告位招商</span>
+        </div>
+        <div class="suitspades">
+            <p>K</p>
+            <span>广告位招商</span>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -2,6 +2,7 @@
 namespace luffyzhao\cards\seat;
 
 use Exception;
+use luffyzhao\cards\games\abstracts\PokerGame;
 use luffyzhao\cards\player\Player;
 
 /**
@@ -26,12 +27,26 @@ class Seat
      */
     protected $isbegin = false;
     /**
+     * 正在进行的游戏
+     * @var null
+     */
+    protected $games = null;
+    /**
      * 座位构造
      * @method   __construct
      * @DateTime 2017-08-09T18:01:39+0800
      * @param    Player                   $player [description]
      */
-    protected function __construct($playerNumber)
+    protected function __construct()
+    {
+    }
+    /**
+     * 设置玩家人数
+     * @method   setPlayerNumber
+     * @DateTime 2017-08-10T10:58:31+0800
+     * @param    [type]                   $playerNumber [description]
+     */
+    public function setPlayerNumber($playerNumber)
     {
         $this->playerNumber = $playerNumber;
     }
@@ -47,15 +62,15 @@ class Seat
      * 单例模式
      * @method   instance
      * @DateTime 2017-08-10T09:19:50+0800
-     * @param    [type]                   $playerNumber 玩家人数
+     * @param    [type]                   $seatid       桌位编号
      * @return   [type]                                 [description]
      */
-    public static function instance($playerNumber)
+    public static function instance($seatid)
     {
-        if (self::$instance === null) {
-            self::$instance = new static($playerNumber);
+        if (!isset(self::$instance[$seatid]) || self::$instance[$seatid] === null) {
+            self::$instance[$seatid] = new static();
         }
-        return self::$instance;
+        return self::$instance[$seatid];
     }
     /**
      * 添加玩家（分配座位）
@@ -265,14 +280,41 @@ class Seat
         throw new Exception("玩家不存在");
     }
     /**
+     * 添加游戏
+     * @method   addGames
+     * @DateTime 2017-08-10T11:02:12+0800
+     * @param    [type]                   $games [description]
+     * @return   [type]                          [description]
+     */
+    public function addGames($games)
+    {
+        if ($games instanceof PokerGame) {
+            $this->games = $games;
+            return $this->games;
+        }
+
+        throw new Exception("游戏不存在");
+    }
+    /**
+     * 获取所有玩家信息
+     * @method   getLists
+     * @DateTime 2017-08-10T11:13:49+0800
+     * @return   [type]                   [description]
+     */
+    public function getLists()
+    {
+        return $this->list;
+    }
+    /**
      * 把牌绑定座位
      * @method   bindCards
      * @DateTime 2017-08-10T10:09:15+0800
      * @param    [type]                   $cards [description]
      * @return   [type]                          [description]
      */
-    public function bindCards($cards)
+    public function bindCards()
     {
+        $cards = $this->games->getPlayers();
         foreach ($cards as $key => $value) {
             if (!isset($this->list[$key])) {
                 throw new Exception("绑定座位失败。");

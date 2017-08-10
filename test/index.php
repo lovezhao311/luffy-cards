@@ -6,7 +6,10 @@ use luffyzhao\cards\games\Bullfight;
 use luffyzhao\cards\player\Player;
 use luffyzhao\cards\seat\Seat;
 
-$seat = Seat::instance(4);
+$seat = Seat::instance(1001);
+
+// 设置玩家人数
+$seat->setPlayerNumber(4);
 
 $seat->addPlayer(new Player(1));
 // 玩家1准备
@@ -37,7 +40,8 @@ if ($seat->isbegin()) {
 $seat->readyForIndex(3);
 // 准备好之后发牌
 if ($seat->isbegin()) {
-    $bull = new Bullfight();
+
+    $bull = $seat->addGames(new Bullfight());
     // 设置庄家
     // $bull->setBanker(1);
     // 洗牌
@@ -46,13 +50,11 @@ if ($seat->isbegin()) {
     $bull->payerWash(5);
     // 发牌
     $bull->deal();
-    // 玩家手中的牌
-    // $er = $bull->getPlayers();
-    // 玩家手里的牛
-    $cards = $bull->turn();
-    // 把生成的牌
-    $seat->bindCards($cards);
-    // 掉线
+
     $seat->delPlayerForIndex(2);
-    print_r($seat);
+    $seat->bindCards();
+    // 某个人的牛
+    // print_r($seat->getPlayerForIndex(1));
+    // 全部人的牛
+    print_r($seat->getLists());
 }

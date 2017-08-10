@@ -46,28 +46,13 @@ class Bullfight extends PokerGame
         $this->players = array_fill(0, $this->playersNum, []);
         for ($i = 0; $i < $this->playerPokerNum; $i++) {
             for ($j = 0; $j < $this->playersNum; $j++) {
-                $this->players[$this->getDealPosition($j)][] = array_shift($this->pokers);
+                $this->players[$this->getDealPosition($j)]['pokers'][] = array_shift($this->pokers);
             }
         }
-        return $this->players;
-    }
 
-    /**
-     * 开牌
-     * @method   turn
-     * @DateTime 2017-08-03T15:16:45+0800
-     * @return   [type]                   [description]
-     */
-    public function turn()
-    {
-        $pokers = $this->getPlayers();
-        $turns = [];
-        foreach ($pokers as $player => $poker) {
-            $playerCattle = $this->lookBuff($poker);
-            $turns[$player] = $playerCattle;
-            $turns[$player]['poker'] = $poker;
+        foreach ($this->players as $player => $poker) {
+            $this->players[$player]['cattle'] = $this->lookBuff($poker['pokers']);
         }
-        return $turns;
     }
 
     /**
